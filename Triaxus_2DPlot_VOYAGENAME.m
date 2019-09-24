@@ -31,11 +31,11 @@ for i = 1
         
         rho.min = 1024; rho.max = 1027; rho.conts = rho.min:0.5:rho.max; % Density
         temp.min = 15; temp.max = 23; temp.conts = temp.min:0.05:temp.max; % Temperature
-        chl.min = 0; chl.max = 0.8; chl.conts = chl.min:0.05:chl.max; % Chlorophyll
-        counts.min = 2; counts.max = 4.5; counts.conts = counts.min:0.1:counts.max; % Abundance
-        biomass.min = 1; biomass.max = 3; biomass.conts = biomass.min:0.1:biomass.max; % Biomass
-        slope.min = -0.9; slope.max = -0.5; slope.conts = slope.min:0.05:slope.max; % NBSS Slope
-        geomn.min = 180; geomn.max = 220; geomn.conts = geomn.min:2:geomn.max; % Geometric Mean
+        chl.min = 0; chl.max = 0.6; chl.conts = chl.min:0.05:chl.max; % Chlorophyll
+        counts.min = 2.5; counts.max = 4; counts.conts = counts.min:0.1:counts.max; % Abundance
+        biomass.min = 1.5; biomass.max = 3; biomass.conts = biomass.min:0.1:biomass.max; % Biomass
+        slope.min = -1.1; slope.max = -0.7; slope.conts = slope.min:0.01:slope.max; % NBSS Slope
+        geomn.min = 320; geomn.max = 360; geomn.conts = geomn.min:2:geomn.max; % Geometric Mean
         
 %     elseif i == 5
 %         maxD = 150; % Maximum depth for plotting
