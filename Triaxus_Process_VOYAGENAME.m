@@ -1,24 +1,24 @@
 clear
 close all
-
+% 
 % This script is the master control for the processing of Triaxus data.
 % Here we set the names of all the input files - LOPC, CTD (scan) and
 % EcoTriplet - and the output directories.
-%
+% 
 % We do some preliminary processing of the CTD scan data to remove
 % obviously bad data, but since this is still prelimiary data from during
 % the voyage, we don't spend much time. We are more interested in broad
 % features and large scale changes in oceanography to relate to plankton
 % data.
-%
+% 
 % This script will call a range of other functions which will individually
 % process each input file, and then merge all the outputs into a single
 % MATLAB structure which is appended to the .mat file. 
-%
+% 
 % When you have finished running Triaxus_Process_VOYAGENAME.m and you have
 % the output file for each deployment, you can run setup and run
 % Triaxus_2DPlot_VOYAGENAME.m to get the spatial plot.
-%
+% 
 % This code requires that the MATLAB Statistics Toolbox is installed and the
 % GSW_Oceanographic toolbox is installed (http://www.teos-10.org/software.htm).
 %
