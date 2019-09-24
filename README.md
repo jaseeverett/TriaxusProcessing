@@ -1,5 +1,7 @@
 # TriaxusProcessing
 
+NOTE: This is a very basic HOWTO. I do intend to write a better one on time, but at the moment there is no time - JDE
+
 This repo is a compilation of scripts which allow the processsing of LOPC + Triaxus data from the CSIRO MNF. 
 
 The two scripts you will need to worry about are:
@@ -17,3 +19,5 @@ This script will call a range of other functions which will individually process
 When you have finished running Triaxus_Process_* and you have the output file for each deployment, you can run setup and run Triaxus_2DPlot_* to get the spatial plot. There are a range of colobar limits at the top which can be changed to make the plots interpretibale to your particular dataset.
 
 **This code requires that my LOPC_Toolbox files are downloaded and the MATLAB Statistics Toolbox and the GSW_Oceanographic toolbox are installed (http://www.teos-10.org/software.htm).** All should be added to your path so they are visible from "TriaxusProcessing"
+
+**Troubleshooting** If you run into problems with the code, and there is no obvious MATLAB error, start by looking at the raw LOPC and Ecotriplet data files in a decent text editor. Both sets of files seem to introduce garbage at points within the transmission. Possibly due to interruptions with the communications. There is only rudimentary error checking of the input files so these problems are not always apparent from MATLAB. There can also be comm breaks in mid data packet which create incomplete lines. These are harder to find but equally cause troubles. Careful inspection of the data files may be needed. You don't need the Ecotrioplet files to process the LOPC so you can set these filenames to {''} and therefore the software will not look for them.
