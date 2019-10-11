@@ -25,8 +25,5 @@ xlabel('Time')
 ylabel('Abundance')
 datetick('x','HH:MM','keeplimits')
 
-set(gcf,'color','w')
 
-eval(['export_fig ',s.Output_Name, '_QC -r300 -png'])
-
-close
+eval(['export_fig ',s.Output_Name, '-png') 
