@@ -24,6 +24,7 @@ else
     eval(['load ',Output_Name,'.mat CTD'])
 end
 
+disp(' ')
 disp(['CTD Start Time: ',datestr(CTD.time(1))])
 disp(['CTD End Time: ',datestr(CTD.time(end))])
 disp(' ')

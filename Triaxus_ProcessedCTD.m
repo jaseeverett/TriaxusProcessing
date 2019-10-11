@@ -1,10 +1,17 @@
 function s = Triaxus_ProcessedCTD(files)
 
-var = {'woce_date','woce_time','latitude','longitude','distance','pressure','temperature',...
+var = {'woce_date','woce_time','latitude','longitude','pressure','temperature',...
     'salinity','chlorophyll','cdom'};
 
-s = struct('time',[],'woce_date',[],'woce_time',[],'latitude',[],'longitude',[],'distance',[],'pressure',[],'temperature',[],...
+s = struct('time',[],'woce_date',[],'woce_time',[],'latitude',[],'longitude',[],'pressure',[],'temperature',[],...
     'salinity',[],'chlorophyll',[],'cdom',[]);
+
+% var = {'woce_date','woce_time','latitude','longitude','distance','pressure','temperature',...
+%     'salinity','chlorophyll','cdom'};
+
+% s = struct('time',[],'woce_date',[],'woce_time',[],'latitude',[],'longitude',[],'distance',[],'pressure',[],'temperature',[],...
+%     'salinity',[],'chlorophyll',[],'cdom',[]);
+
 
 flag = {'temperature','salinity','chlorophyll','cdom'};
 f = struct('temperature',[],'salinity',[],'chlorophyll',[],'cdom',[]);
