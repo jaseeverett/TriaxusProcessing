@@ -65,17 +65,17 @@ disp('Calculating running average of NBSS Data')
 disp('')
 
 %% OFFSET FACTOR
-offset = 10; % number of metres to remove at start/end
-
-%%
-% start_time = CTD.time(1)+((60*offset)/86400);
-% end_time = CTD.time(end)-((60*offset)/86400);
-
+offset = 50; % number of metres to remove at start/end
 fi_st = find(CTD.pressure>offset & CTD.time >= LOPC.datenum(1),1,'first');
 fi_en = find(CTD.pressure>offset & CTD.time <= LOPC.datenum(end),1,'last');
-
 start_time = CTD.time(fi_st);
 end_time = CTD.time(fi_en);
+
+% offset = 10; % number of minutes to remove at start/end
+% fi_st = find(CTD.time >= LOPC.datenum(1),1,'first');
+% fi_en = find(CTD.time <= LOPC.datenum(end),1,'last');
+% start_time = CTD.time(fi_st) + offset*60/86400;
+% end_time = CTD.time(fi_en) - offset*60/86400;
 
 % warning('I am recreating time - Is this a problem with integration')
 s.datenum = (start_time:s.int:end_time)';
@@ -98,11 +98,18 @@ while min(diff(s.grnddist))<=0
     s.grnddist(fi+1) = s.grnddist(fi) + 1e-6;
 end
 
-% s.waterDepth = interp1q(CTD.time,CTD.waterDepth,s.datenum);
 s.pressure = interp1(CTD.time,CTD.pressure,s.datenum);
 s.temperature = interp1(CTD.time,CTD.temperature,s.datenum); % Use CTD temperature
 s.conductivity = interp1(CTD.time,CTD.conductivity,s.datenum);
 
+%% Is the first dip up or down
+s = Triaxus_Cast(s);
+rm_cast = 2; % % Remove 2 casts on each side to avoid dodgy deployment stuff.
+
+fi_cast = find(s.cast_no > rm_cast & s.cast_no <= max(s.cast_no) - rm_cast);
+s = reduce_struct(s,fi_cast);
+
+%% Continue with processing
 s.chl = interp1(EcoTrip.datenum,EcoTrip.Chl,s.datenum);
 s.CDOM = interp1(EcoTrip.datenum,EcoTrip.CDOM,s.datenum);
 
@@ -128,8 +135,9 @@ s = LOPC_SubSample(s,LOPC);
 %%
 s.Output_Name = Output_Name;
 
-%% Is the first dip up or down
-s = Triaxus_Cast(s);
+
+
+
 
 eval(['save ',s.Output_Name,'.mat s EcoTrip -append'])
 clear LOPC

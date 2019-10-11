@@ -38,7 +38,10 @@ for a = 1:length(files)
     [~,nScans(a)] = netcdf.inqDim(ncid,dimid);
     
     s.time = [s.time; t.time./86400./1e3 + y];
-    
+   
+    disp(['CTD',num2str(a),' Start Time: ',datestr(s.time(1))])
+    disp(['CTD',num2str(a),' End Time: ',datestr(s.time(end))])
+
     %% Add location information
     s.latitude = [s.latitude; t.latitude];
     s.longitude = [s.longitude; t.longitude];

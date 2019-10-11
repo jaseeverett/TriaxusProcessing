@@ -14,7 +14,12 @@ for a = 1:length(files)
     s.nc{a} = ncinfo(files{a});
     s.Filename{a} = files{a};
     
-    s.time = [s.time; ncread(files{a},'time')./(24*60) + datenum(1900,1,1,0,0,0)];
+    tt = ncread(files{a},'time')./(24*60) + datenum(1900,1,1,0,0,0); 
+    disp(['CTD',num2str(a),' Start Time: ',datestr(tt(1))])
+    disp(['CTD',num2str(a),' End Time: ',datestr(tt(end))])
+    
+    s.time = [s.time; tt];
+    clear tt
         
     %% load CTD data    
      for v = 1:length(var)
@@ -26,6 +31,8 @@ for a = 1:length(files)
      end
     clear r c t ncid varid 
     
+    
+
 end
 
 % Apply flags and replace bad data with NaN;
