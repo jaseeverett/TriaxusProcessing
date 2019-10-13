@@ -37,10 +37,13 @@ for a = 1:length(files)
     dimid = netcdf.inqDimID(ncid,'scan');
     [~,nScans(a)] = netcdf.inqDim(ncid,dimid);
     
-    s.time = [s.time; t.time./86400./1e3 + y];
+    tt = t.time./86400./1e3 + y;
+    
+    s.time = [s.time; tt];
    
-    disp(['CTD',num2str(a),' Start Time: ',datestr(s.time(1))])
-    disp(['CTD',num2str(a),' End Time: ',datestr(s.time(end))])
+    disp(['CTD',num2str(a),' Start Time: ',datestr(tt(1))])
+    disp(['CTD',num2str(a),' End Time: ',datestr(tt(end))])
+    disp(' ')
 
     %% Add location information
     s.latitude = [s.latitude; t.latitude];
@@ -59,9 +62,6 @@ for a = 1:length(files)
     % Reduce sensor's to those used for this deployment
     s.sensor = cellstr(s.sensor(s.activeSensor,:));
     
-    disp(['CTD',num2str(a),' Start Time: ',datestr(t.time(1)./86400./1e3 + y)])
-    disp(['CTD',num2str(a),' End Time: ',datestr(t.time(end)./86400./1e3 + y)])
-    disp(' ')
     
     clear r c t ncid varid
     

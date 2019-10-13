@@ -1,7 +1,5 @@
 function s = Triaxus_Merge(LOPC_files, CTD_files, EcoTrip_files, Output_Name, ESD, avg_time, reprocess)
-
 %%
-
 s.int = avg_time/86400; % secs to average over
 warning(['Time Averaging in Triaxus_Merge is set to ',num2str(avg_time),' secs'])
 
@@ -11,7 +9,6 @@ Output_Name = [Output_Name,'_',sprintf('%02d',avg_time),'s'];
 if nargin == 6
     reprocess = 1;
 end
-
 
 %% Get CTD data
 if reprocess == 1 & strcmp(CTD_files{1}(1:6),'deploy')==0
@@ -113,7 +110,6 @@ s = reduce_struct(s,fi_cast);
 %% Continue with processing
 s.chl = interp1(EcoTrip.datenum,EcoTrip.Chl,s.datenum);
 s.CDOM = interp1(EcoTrip.datenum,EcoTrip.CDOM,s.datenum);
-
 s.salinity = interp1(CTD.time,CTD.salinity,s.datenum);
 
 % There are some erroneous salinity and pressure values. I need to change
@@ -129,7 +125,6 @@ s.pressure = nan_replace(s.pressure,s.datenum);
 s.rho = gsw_rho(SA,s.temperature,s.pressure);
 clear SA
 
-
 %%
 s = LOPC_SubSample(s,LOPC);
 
@@ -138,7 +133,6 @@ s.Output_Name = Output_Name;
 
 %% Plot QC plots
 Triaxus_QC_Plot(s)
-
 
 eval(['save ',s.Output_Name,'.mat s EcoTrip -append'])
 clear LOPC
