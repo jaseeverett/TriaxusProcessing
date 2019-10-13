@@ -15,12 +15,14 @@ plot(s.datenum,s.Flow.Velocity,'.b')
 set(gca,'XLim',xl)
 ylabel('Velocity')
 datetick('x','HH:MM','keeplimits')
+set(gca,'XLim',xl)
 
 subplot(4,1,3)
 plot(s.datenum,log10(s.Biomass),'.b')
 set(gca,'XLim',xl)
 ylabel('Biomass')
 datetick('x','HH:MM','keeplimits')
+set(gca,'XLim',xl)
 
 subplot(4,1,4)
 plot(s.datenum,log10(s.Abundance),'.b')
@@ -28,6 +30,7 @@ set(gca,'XLim',xl)
 xlabel('Time')
 ylabel('Abundance')
 datetick('x','HH:MM','keeplimits')
+set(gca,'XLim',xl)
 
 set(gcf,'color','w')
 
