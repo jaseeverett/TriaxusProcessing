@@ -14,7 +14,7 @@ end
 if reprocess == 1 & strcmp(CTD_files{1}(1:6),'deploy')==0
     CTD = Triaxus_CTD(CTD_files);
     eval(['save ',Output_Name,'.mat -v7.3 CTD'])
-elseif reprocess == 1 & strcmp(CTD_files{1}(1:6),'deploy')==1
+elseif reprocess == 1 & (strcmp(CTD_files{1}(1:6),'deploy')==1 | strcmp(CTD_files{1}(1:3),'avg')==1)
     CTD = Triaxus_ProcessedCTD(CTD_files);
      eval(['save ',Output_Name,'.mat -v7.3 CTD'])
 else
