@@ -22,7 +22,7 @@ p = plot(s.grnddist,s.pressure,'color',[0.5 0.5 0.5],'linewidth',0.1);
 
 set(gca,'ydir','r','fontsize',txt,'ytick',[50:50:maxD+50])
 set(gca,'XTickLabel','')
-tx = text(txt_x,txt_y,'\bfA) Temperature','horizontalalignment','l','units','normalized','fontsize',txt);
+tx1 = text(txt_x,txt_y,'A) Temperature','horizontalalignment','l','units','normalized','fontsize',txt-2, 'color',fc);
 ylabel('Depth (m)')
 xlim([xlim_start xlim_end])
 ylim([minD maxD])
@@ -41,12 +41,12 @@ hold on
 % p = plot(s.grnddist(1:10),s.pressure(1:10),'.k','markersize',1);
 set(gca,'ydir','r','fontsize',txt,'ytick',[50:50:maxD+50])
 set(gca,'XTickLabel','')
-tx = text(txt_x,txt_y,'\bfB) Chl. \ita\rm (mg m^{-3})','horizontalalignment','l','units','normalized','fontsize',txt);
+tx2 = text(txt_x,txt_y,'B) Chl. \ita\rm (mg m^{-3})','horizontalalignment','l','units','normalized','fontsize',txt-2, 'color',fc);
 ylim([minD maxD])
 
 [XXI,YYI,ZZI] = find_downcast(s.grnddist,s.pressure,s.rho, depth_res, minext, interpVert);
 [C h] = contour(XXI,YYI,ZZI,rho.conts,'edgecolor',[0.5 0.5 0.5]);
-clabel(C,h,'LabelSpacing',150,'color',[0.5 0.5 0.5],'fontsize',8);
+clabel(C,h,'LabelSpacing',150,'color',[0.5 0.5 0.5],'fontsize',6);
 xlim([xlim_start xlim_end])
 ylim([minD maxD])
 
@@ -62,7 +62,7 @@ colormap(h3,jet)
 hold on
 set(gca,'ydir','r','fontsize',txt,'ytick',[50:50:maxD+50])
 set(gca,'XTickLabel','')
-tx = text(txt_x,txt_y,'\bfC) log_{10} Zooplankton Abundance (ind. m^{-3})','horizontalalignment','l','units','normalized','fontsize',txt);
+tx3 = text(txt_x,txt_y,'C) log_{10} Zooplankton Abundance (ind. m^{-3})','horizontalalignment','l','units','normalized','fontsize',txt-2, 'color',fc);
 ylabel('Depth (m)')
 xlim([xlim_start xlim_end])
 ylim([minD maxD])
@@ -81,7 +81,7 @@ hold on
 % p = plot(s.grnddist(1:10),s.pressure(1:10),'.k','markersize',1);
 set(gca,'ydir','r','fontsize',txt,'ytick',[50:50:maxD+50])
 set(gca,'XTickLabel','')
-tx = text(txt_x,txt_y,'\bfD) log_{10} Zooplankton Biomass (mg m^{-3})','horizontalalignment','l','units','normalized','fontsize',txt);
+tx4 = text(txt_x,txt_y,'D) log_{10} Zooplankton Biomass (mg m^{-3})','horizontalalignment','l','units','normalized','fontsize',txt-2, 'color',fc);
 xlim([xlim_start xlim_end])
 ylim([minD maxD])
 
@@ -100,7 +100,7 @@ hold on
 % p = plot(s.grnddist(1:10),s.pressure(1:10),'.k','markersize',1);
 set(gca,'ydir','r','fontsize',txt,'ytick',[50:50:maxD+50])
 set(gca,'XTickLabel','')
-tx = text(txt_x,txt_y,'\bfE) NBSS Linear Slope','horizontalalignment','l','units','normalized','fontsize',txt);
+tx5 = text(txt_x,txt_y,'E) NBSS Linear Slope','horizontalalignment','l','units','normalized','fontsize',txt-2, 'color',fc);
 ylabel('Depth (m)')
 xlim([xlim_start xlim_end])
 ylim([minD maxD])
@@ -116,7 +116,7 @@ cmap = colormap(h6,jet);
 hold on
 % p = plot(s.grnddist(1:10),s.pressure(1:10),'.k','markersize',1);
 set(gca,'ydir','r','fontsize',txt,'ytick',[50:50:maxD+50])
-tx = text(txt_x,txt_y,'\bfF) Geometric Mean Size (\mum)','horizontalalignment','l','units','normalized','fontsize',txt);
+tx6 = text(txt_x,txt_y,'F) Geometric Mean Size (\mum)','horizontalalignment','l','units','normalized','fontsize',txt-2, 'color',fc);
 xlim([xlim_start xlim_end])
 ylim([minD maxD])
 
@@ -136,4 +136,4 @@ for a = 1:length(xtick)
     clear xtick_txt
 end
 
-text(s.grnddist(end)/2,YT+110,'Distance along transect (km)','horizontalalignment','center','fontsize',txt)
+tx_bot = text(s.grnddist(end)/2,YT+90,'Distance along transect (km)','horizontalalignment','center','fontsize',txt);
