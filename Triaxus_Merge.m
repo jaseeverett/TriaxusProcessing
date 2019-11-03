@@ -11,15 +11,31 @@ if nargin == 6
 end
 
 %% Get CTD data
-if reprocess == 1 & strcmp(CTD_files{1}(1:6),'deploy')==0
+% This is the old commands, I am going to try and rewrite for scan/ deploy/ avg/ etc
+% if reprocess == 1 & strcmp(CTD_files{1}(1:6),'deploy')==0
+%     CTD = Triaxus_CTD(CTD_files);
+%     eval(['save ',Output_Name,'.mat -v7.3 CTD'])
+% elseif reprocess == 1 & (strcmp(CTD_files{1}(1:6),'deploy')==1 | strcmp(CTD_files{1}(1:3),'avg')==1)
+%     CTD = Triaxus_ProcessedCTD(CTD_files);
+%      eval(['save ',Output_Name,'.mat -v7.3 CTD'])
+% else
+%     eval(['load ',Output_Name,'.mat CTD'])
+% end
+
+if reprocess == 1 & strcmp(CTD_files{1}(1:4),'scan')==1
     CTD = Triaxus_CTD(CTD_files);
     eval(['save ',Output_Name,'.mat -v7.3 CTD'])
-elseif reprocess == 1 & (strcmp(CTD_files{1}(1:6),'deploy')==1 | strcmp(CTD_files{1}(1:3),'avg')==1)
-    CTD = Triaxus_ProcessedCTD(CTD_files);
+elseif reprocess == 1 & (strcmp(CTD_files{1}(1:6),'deploy')==1)
+    CTD = Triaxus_CTD_deploy(CTD_files);
      eval(['save ',Output_Name,'.mat -v7.3 CTD'])
+elseif reprocess == 1 & (strcmp(CTD_files{1}(1:3),'avg')==1)
+    CTD = Triaxus_CTD_avg(CTD_files);
+     eval(['save ',Output_Name,'.mat -v7.3 CTD'])
+     
 else
     eval(['load ',Output_Name,'.mat CTD'])
 end
+
 
 disp(' ')
 disp(['CTD Start Time: ',datestr(CTD.time(1))])
