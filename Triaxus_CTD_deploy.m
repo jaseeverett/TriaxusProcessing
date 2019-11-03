@@ -1,4 +1,4 @@
-function s = Triaxus_ProcessedCTD(files)
+function s = Triaxus_CTD_deploy(files)
 
 var = {'woce_date','woce_time','latitude','longitude','pressure','temperature',...
     'salinity','chlorophyll','cdom'};
