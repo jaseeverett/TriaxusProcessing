@@ -148,7 +148,7 @@ s = LOPC_SubSample(s,LOPC);
 s.Output_Name = Output_Name;
 
 %% Plot QC plots
-Triaxus_QC_Plot(s)
+% Triaxus_QC_Plot(s)
 
 eval(['save ',s.Output_Name,'.mat s EcoTrip -append'])
 clear LOPC

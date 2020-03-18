@@ -65,7 +65,6 @@ for a = 1:length(files)
     
     clear r c t ncid varid
     
-    
 end
 
 %% MNF workaround to fix time errors
