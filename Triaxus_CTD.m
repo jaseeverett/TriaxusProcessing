@@ -67,13 +67,13 @@ for a = 1:length(files)
     
 end
 
-%% MNF workaround to fix time errors
-t0 = s.time(1);
-dt = 1.0/scanRate;
-dtt = datenum(0, 0, 0, 0, 0, dt);
-endTime = t0 + dtt * sum(nScans);
-
-s.time = transpose(linspace(t0, endTime, sum(nScans)));
+% %% MNF workaround to fix time errors
+% t0 = s.time(1);
+% dt = 1.0/scanRate;
+% dtt = datenum(0, 0, 0, 0, 0, dt);
+% endTime = t0 + dtt * sum(nScans);
+% 
+% s.time = transpose(linspace(t0, endTime, sum(nScans)));
 
 
 %% Deal with bad data
