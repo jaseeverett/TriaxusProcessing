@@ -4,6 +4,7 @@ minext = 0.1;
 interpVert = 1;
 
 rows = 6; cols = 1;
+fc='Black'; %Font colour for plot
 
 %% 
 num = 1; figprep_MNF
@@ -123,6 +124,10 @@ ylim([minD maxD])
 %% 
 xtick = get(gca,'XTick');
 xticklabel = get(gca,'XTickLabel');
+
+%Avoids the mapping toolbox dependency - https://au.mathworks.com/matlabcentral/answers/230827-how-can-i-replace-roundn
+roundn = @(x,n) 10.^n .* round(x/10.^n);
+
 
 % If you want the plot to display longitude, change s.latitute to s.longtiude
 xlat = roundn(s.latitude(dsearchn(s.grnddist,xtick')),-2);

@@ -235,7 +235,7 @@ elseif interpVert == 1
             
             % The way this is currently coded, it assumes that the new downcast
             % is equidistant between the left and right casts
-            ZI(ii,i) = nanmean([l_var r_var]);
+            ZI(ii,i) = mean([l_var r_var],'omitnan');
         end
         
     end
