@@ -61,7 +61,7 @@ for j = (avg/2):avg:(ceil(s.secs(end))-avg/2)
         ss.distance(k,1) = s.distance(m,1);
         ss.grnddist(k,1) = s.grnddist(m,1); % km
         
-        ss.velocity(k,1) = nanmean(s.velocity(fi,1));
+        ss.velocity(k,1) = mean(s.velocity(fi,1),'omitnan');
         %             ss.velocity(k,1) = ss.intDist(k,1)/ss.intTime(k,1); %m s-1
         ss.flow(k,1) = ss.velocity(k,1).*s.OPC_SA;
         

@@ -27,8 +27,8 @@ close all
 % from the great Lindsay Pender (CSIRO)
 % Last Updated 24th September 2019
 
-input_folder = '~/GitHub/TriaxusProcessing/TestData';
-output_folder = 'TestData/output';
+input_folder = 'TestData';
+output_folder = 'TestData\output';
 
 ESD_Range = [200 35000]; % Size limits for the LOPC data
 avg_time = 20; % Number seconds to average over. Keep at 20 (seems to work well) unless you have a good reason to change.

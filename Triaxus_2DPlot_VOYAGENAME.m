@@ -28,6 +28,7 @@ for i = 1
     
     if i == 1 % or use i < 5 to set these limits for a whole range of deployments
         maxD = 200; % Maximum depth for plotting
+        minD = 0;
         
         rho.min = 1024; rho.max = 1027; rho.conts = rho.min:0.5:rho.max; % Density
         temp.min = 15; temp.max = 23; temp.conts = temp.min:0.05:temp.max; % Temperature

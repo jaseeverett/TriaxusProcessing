@@ -22,7 +22,8 @@ end
 %     eval(['load ',Output_Name,'.mat CTD'])
 % end
 
-if reprocess == 1 & strcmp(CTD_files{1}(1:4),'scan')==1
+%if reprocess == 1 & strcmp(CTD_files{1}(1:4),'scan')==1
+if reprocess == 1 & contains(CTD_files{1},'scan')==1
     CTD = Triaxus_CTD(CTD_files);
     eval(['save ',Output_Name,'.mat -v7.3 CTD'])
 elseif reprocess == 1 & (strcmp(CTD_files{1}(1:6),'deploy')==1)
