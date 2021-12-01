@@ -11,27 +11,16 @@ if nargin == 6
 end
 
 %% Get CTD data
-% This is the old commands, I am going to try and rewrite for scan/ deploy/ avg/ etc
-% if reprocess == 1 & strcmp(CTD_files{1}(1:6),'deploy')==0
-%     CTD = Triaxus_CTD(CTD_files);
-%     eval(['save ',Output_Name,'.mat -v7.3 CTD'])
-% elseif reprocess == 1 & (strcmp(CTD_files{1}(1:6),'deploy')==1 | strcmp(CTD_files{1}(1:3),'avg')==1)
-%     CTD = Triaxus_ProcessedCTD(CTD_files);
-%      eval(['save ',Output_Name,'.mat -v7.3 CTD'])
-% else
-%     eval(['load ',Output_Name,'.mat CTD'])
-% end
-
 if reprocess == 1 & strcmp(CTD_files{1}(1:4),'scan')==1
     CTD = Triaxus_CTD(CTD_files);
     eval(['save ',Output_Name,'.mat -v7.3 CTD'])
 elseif reprocess == 1 & (strcmp(CTD_files{1}(1:6),'deploy')==1)
     CTD = Triaxus_CTD_deploy(CTD_files);
-     eval(['save ',Output_Name,'.mat -v7.3 CTD'])
+    eval(['save ',Output_Name,'.mat -v7.3 CTD'])
 elseif reprocess == 1 & (strcmp(CTD_files{1}(1:3),'avg')==1)
     CTD = Triaxus_CTD_avg(CTD_files);
-     eval(['save ',Output_Name,'.mat -v7.3 CTD'])
-     
+    eval(['save ',Output_Name,'.mat -v7.3 CTD'])
+    
 else
     eval(['load ',Output_Name,'.mat CTD'])
 end
@@ -79,7 +68,10 @@ disp('Calculating running average of NBSS Data')
 disp('')
 
 %% OFFSET FACTOR
-offset = 50; % number of metres to remove at start/end
+% offset = 50; % number of metres to remove at start/end
+
+% Trying to halve the distance as we are losing too much... 21/Sept/'21
+offset = 25; % number of metres to remove at start/end
 fi_st = find(CTD.pressure>offset & CTD.time >= LOPC.datenum(1),1,'first');
 fi_en = find(CTD.pressure>offset & CTD.time <= LOPC.datenum(end),1,'last');
 start_time = CTD.time(fi_st);
@@ -140,6 +132,38 @@ s.pressure = nan_replace(s.pressure,s.datenum);
 [SA,~,~] = gsw_SA_Sstar_from_SP(s.salinity,s.pressure,s.longitude,s.latitude);
 s.rho = gsw_rho(SA,s.temperature,s.pressure);
 clear SA
+
+
+% Smooth the flow data a little.
+smooth_time = 120;
+
+dt = diff(LOPC.datenum)*86400;
+dt = [dt; dt(end)];
+
+% Do chosen flow first
+LOPC.Flow.Dist = Triaxus_Filter(LOPC.Flow.Dist, LOPC.datenum, smooth_time);
+LOPC.Flow.Velocity = LOPC.Flow.Dist ./ dt; % m s-1
+LOPC.Flow.Vol = LOPC.Flow.Dist .* LOPC.Param.SA;
+LOPC.Flow.TotalVol = sum(LOPC.Flow.Vol);
+
+if isfield(LOPC.Flow,'Meter')
+    LOPC.Flow.Meter.Dist = Triaxus_Filter(LOPC.Flow.Meter.Dist, LOPC.datenum, smooth_time);
+    LOPC.Flow.Meter.Velocity = LOPC.Flow.Meter.Dist ./ dt; % m s-1
+    LOPC.Flow.Meter.Vol = LOPC.Flow.Meter.Dist .* LOPC.Param.SA;
+    LOPC.Flow.Meter.TotalVol = sum(LOPC.Flow.Meter.Vol);
+end
+
+if isfield(LOPC.Flow,'Transit')
+    LOPC.Flow.Transit.Dist = Triaxus_Filter(LOPC.Flow.Transit.Dist, LOPC.datenum, smooth_time);
+    LOPC.Flow.Transit.Velocity = LOPC.Flow.Transit.Dist ./ dt; % m s-1
+    LOPC.Flow.Transit.Vol = LOPC.Flow.Transit.Dist .* LOPC.Param.SA;
+    LOPC.Flow.Transit.TotalVol = sum(LOPC.Flow.Transit.Vol);
+end
+
+% TODO At this stage there is no code to do Oblique volumes directly for the
+% triaxus data. I should write this at some point. For the purposes of the
+% Missing Link project, I do this in MissLink_MNF for comparison.
+
 
 %%
 s = LOPC_SubSample(s,LOPC);
