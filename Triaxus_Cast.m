@@ -5,17 +5,17 @@ function s = Triaxus_Cast(s)
 % October 2016
 
 %%
-MinExt = 0.2;
 
 % Reduce to one cast only
-[~,~,~,iext] = find_downcast(s.grnddist,s.pressure,s.temperature,1,MinExt);
+% MinExt = 0.2;
+%[~,~,~,iext] = find_downcast(s.grnddist,s.pressure,s.temperature,1,MinExt);
 
-
-% mPP = 20; %metres
-% [~,MaxIdx] = findpeaks(s.pressure,'MinPeakProminence',mPP);
-% [~,MinIdx] = findpeaks(-s.pressure,'MinPeakProminence',mPP);
-% 
-% iext = sort([MaxIdx; MinIdx]);
+% Sept 2021 - Have commented out find_downcast above and will try `findpeaks`.
+mPP = 20; %metres
+[~,MaxIdx] = findpeaks(s.pressure,'MinPeakProminence',mPP);
+[~,MinIdx] = findpeaks(-s.pressure,'MinPeakProminence',mPP);
+ 
+iext = sort([1; MaxIdx; MinIdx; length(s.pressure)]);
 
 
 % Create my x resolution by finding the trough of each cast
